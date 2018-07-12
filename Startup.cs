@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
-using MySql.Data.MySqlClient;
+//using MySql.Data.MySqlClient;
 
 namespace vesper_test
 {
@@ -56,23 +56,24 @@ namespace vesper_test
 		
 		private static void WaitForDBInit(string connectionString)
         {
-            var connection = new MySqlConnection(connectionString);
-            int retries = 1;
-            while (retries < 7)
-            {
-                try
-                {
-                    Console.WriteLine("Connecting to db. Trial: {0}", retries);
-                    connection.Open();
-                    connection.Close();
-                    break;
-                }
-                catch (MySqlException)
-                {
-                    Thread.Sleep((int) Math.Pow(2, retries) * 1000);
-                    retries++;
-                }
-            }
+			Console.WriteLine("WaitForDBInit");
+            // var connection = new MySqlConnection(connectionString);
+            // int retries = 1;
+            // while (retries < 7)
+            // {
+                // try
+                // {
+                    // Console.WriteLine("Connecting to db. Trial: {0}", retries);
+                    // connection.Open();
+                    // connection.Close();
+                    // break;
+                // }
+                // catch (MySqlException)
+                // {
+                    // Thread.Sleep((int) Math.Pow(2, retries) * 1000);
+                    // retries++;
+                // }
+            // }
         }
     }
 }
