@@ -1,12 +1,6 @@
-FROM microsoft/dotnet:latest
-COPY . /app
+FROM microsoft/aspnetcore-build:latest
+ARG URL_PORT
 WORKDIR /app
-
-RUN dotnet restore
-RUN dotnet build
-
-EXPOSE 8080
-ENV ASPNETCORE_URLS http://*:5000
-ENV ASPNETCORE_ENVIROMENT docker
-
-ENTRYPOINT dotnet run
+ENV NUGET_XMLDOC_MODE skip
+ENV ASPNETCORE_URLS http://0.0.0.0:${URL_PORT}
+ENTRYPOINT [ "dotnet", "vesper_test.dll" ]
