@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using vesper_test.Models;
+using MySql.Data.MySqlClient;
 
 namespace vesper_test.Controllers
 {
@@ -12,7 +13,7 @@ namespace vesper_test.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            return Content("wiadomosc");
         }
 
         public IActionResult About()
@@ -33,5 +34,20 @@ namespace vesper_test.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+	[HttpGet("Check")]
+	public IActionResult Check(){
+		string result = "true";
+		try{
+			var conn = new MySqlConnection("Server=db;Database=Students;Uid=user_name_1;Pwd=my-secret-pw");
+			conn.Open();
+			conn.Close();
+		}catch(Exception e){
+			Console.WriteLine("Message: " + e.Message);
+			Console.WriteLine("Stack: " + e.StackTrace);
+			result = "false";
+		}
+		return Content(result);
+	}
     }
 }

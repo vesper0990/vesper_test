@@ -1,7 +1,6 @@
-FROM microsoft/aspnetcore-build:2.0
-ARG BUILD_CONFIG=Debug
-ARG BUILD_VERSION=0.0.1
-ARG BUILD_LOCATION=/app/out
+FROM microsoft/aspnetcore-build:latest
+ARG BUILD_CONFIG
+ARG BUILD_LOCATION
 ENV NUGET_XMLDOC_MODE skip
 WORKDIR /app
 COPY *.csproj .

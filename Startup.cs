@@ -6,11 +6,13 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MySql.Data.MySqlClient;
 
 namespace vesper_test
 {
     public class Startup
     {
+	private static readonly string connectionString = "Server=db;Database=Students;Uid=user_name_1;Pwd=my-secret-pw";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -21,6 +23,7 @@ namespace vesper_test
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+		initDatabase();
             services.AddMvc();
         }
 
@@ -45,5 +48,15 @@ namespace vesper_test
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
         }
+	private static void initDatabase(){
+		Console.WriteLine("initdatabase");
+		var connection = new MySqlConnection(connectionString);
+		try{
+			connection.Open();
+			connection.Close();
+		} catch(Exception e){
+			Console.WriteLine(e.ToString());
+		}
+	}
     }
 }
